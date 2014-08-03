@@ -1,13 +1,13 @@
-#!/usr/bin/env pytthon
-
-"""
-read a list of points from a CSV file and print out the length of the perimiter of the shape that is formed by joining the points in their listed order
-"""
-
+#!/usr/bin/env python
 import csv
+import sys
+
 
 def main(file_name):
-
+    """
+    read a list of points from a CSV file and print out the length of the perimeter of the shape that is formed by
+    joining the points in their listed order
+    """
     fp = open(file_name)
     reader = csv.reader(fp)
 
@@ -15,21 +15,15 @@ def main(file_name):
     for row in reader:
         x = row[0]
         y = row[1]
-        points.append((x,y))
+        points.append((x, y))
 
-    length = perimiter(points)
+    length = perimeter(points)
 
     print length
 
 
-if __name__ == "__main__":
-
-    file_name = sys.argv[0]
-    main(file_name)
-
-
-def perimiter(points):
-    """ returns the length of the perimiter of some shape defined by a list of points """
+def perimeter(points):
+    """ returns the length of the perimeter of some shape defined by a list of points """
     distances = get_distances(points)
 
     length = 0
@@ -45,7 +39,7 @@ def get_distances(points):
     distances = []
     for i in range(len(points)):
         point = points[i]
-        next_point = points[i+1]
+        next_point = points[i + 1]
         x0 = point[0]
         y0 = point[1]
         x1 = next_point[1]
@@ -54,11 +48,18 @@ def get_distances(points):
         point_distance = get_distance(x0, y0, x1, y1)
         distances.append(point_distance)
 
+    return distances
 
-def get_distance(x0, y1, x1, y1):
-    """ use pythagorean theorm to find distance between 2 points """
-    a = x1 - x2
-    b = y1 - y2
-    c_2 = a*a + b*b
 
-    return c_2 ** (1/2)
+def get_distance(x1, y1, x2, y2):
+    """ use pythagorean theorem to find distance between 2 points """
+    a = x2 - x1
+    b = y2 - y1
+    c_2 = a * a + b * b
+
+    return c_2 ** .5
+
+
+if __name__ == "__main__":
+    path = sys.argv[0]
+    main(path)
